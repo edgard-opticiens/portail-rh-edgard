@@ -1,1 +1,14 @@
-{}
+{
+  "generatedAt": "2026-07-31T16:24:20.070Z",
+  "nouveaux": [
+    {
+      "nom": "LEFLAËC",
+      "prenom": "Sylvain",
+      "societe": "JISAM",
+      "groupe": "EDGARD",
+      "dateEntreeIso": "2026-07-06",
+      "joursDepuisEntree": 25,
+      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/LEFLAECSYLVAIN.png"
+    }
+  ]
+}
