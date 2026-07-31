@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T11:42:14.130Z",
+  "generatedAt": "2026-07-31T12:03:17.014Z",
   "aujourdhui": [],
   "bientot": [
     {
@@ -7,14 +7,16 @@
       "prenom": "Aurelie",
       "societe": "CHATO",
       "groupe": "GO",
-      "joursRestants": 1
+      "joursRestants": 1,
+      "dateAffichage": "01/08"
     },
     {
       "nom": "BAUDIN",
       "prenom": "Camille",
       "societe": "MANSO",
       "groupe": "EDGARD",
-      "joursRestants": 2
+      "joursRestants": 2,
+      "dateAffichage": "02/08"
     }
   ]
 }
