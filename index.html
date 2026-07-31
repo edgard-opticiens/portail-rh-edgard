@@ -390,63 +390,122 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   <!-- Bandeau anniversaires (ajouté indépendamment, ne touche pas au reste de la page) -->
   <style>
-    #bandeau-anniversaires {
+    #bandeau-anniversaires-wrap { position: relative; z-index: 20; margin-top: 24px; opacity: 0; display: none; }
+    #bandeau-anniversaires-wrap.visible { display: block; animation: fadeUp .7s ease forwards; }
+    #bandeau-anniversaires-card {
       position: relative;
-      z-index: 100000;
-      padding: 12px 20px;
-      margin: 12px auto;
-      max-width: 900px;
-      border-radius: 8px;
-      font-size: 15px;
-      line-height: 1.5;
-      background: #fff3cd;
-      border: 1px solid #ffe08a;
-      color: #664d03;
+      overflow: hidden;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(169,122,46,.11), rgba(217,174,110,.16));
+      border: 1px solid rgba(169,122,46,.3);
+      padding: 24px 28px;
+      box-shadow: 0 24px 48px -32px rgba(169,122,46,.45);
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      display: none;
     }
-    #bandeau-anniversaires .emoji { font-size: 20px; margin-right: 6px; }
-    #bandeau-anniversaires .bientot { display: block; margin-top: 4px; font-size: 13px; opacity: 0.85; }
+    #bandeau-anniversaires-card .banner-inner { display: flex; align-items: flex-start; gap: 18px; position: relative; z-index: 2; }
+    #bandeau-anniversaires-card .banner-badge {
+      flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(169,122,46,.11); border: 1px solid rgba(169,122,46,.3);
+      display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+    }
+    #bandeau-anniversaires-card .banner-eyebrow {
+      font-size: .68rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase;
+      color: #A97A2E; margin: 0 0 8px;
+    }
+    #bandeau-anniversaires-card .banner-text {
+      font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600;
+      color: #1C1710; line-height: 1.55;
+    }
+    #bandeau-anniversaires-card .banner-soon {
+      display: block; margin-top: 8px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: .85rem; font-weight: 500; color: #78705F;
+    }
+    #bandeau-anniversaires-card .banner-sparkle { position: absolute; right: -10px; top: -18px; width: 90px; height: 90px; opacity: .3; pointer-events: none; }
   </style>
   <script>
     (function () {
       var URL_JSON = 'https://edgard-opticiens.github.io/portail-rh-edgard/anniversaires.json';
 
+      function formatPerson(p) {
+        var societe = (p.societe || '').toUpperCase();
+        var nom = (p.nom || '').toUpperCase();
+        return (societe ? societe + '-' : '') + nom + ' ' + p.prenom + ' (' + p.dateAffichage + ')';
+      }
+
+      function buildCard(data) {
+        var aujourdhui = data.aujourdhui || [];
+        var bientot = data.bientot || [];
+        if (aujourdhui.length === 0 && bientot.length === 0) return null;
+
+        var wrap = document.createElement('div');
+        wrap.id = 'bandeau-anniversaires-wrap';
+
+        var card = document.createElement('div');
+        card.id = 'bandeau-anniversaires-card';
+
+        var sparkle = '<svg class="banner-sparkle" viewBox="0 0 24 24" fill="#A97A2E" aria-hidden="true">' +
+          '<path d="M12 2l1.8 6.3L20 10l-6.2 1.7L12 18l-1.8-6.3L4 10l6.2-1.7z"></path></svg>';
+
+        var textHtml = '';
+        if (aujourdhui.length > 0) {
+          var noms = aujourdhui.map(formatPerson).join(', ');
+          var verbe = aujourdhui.length > 1 ? 'fêtent leur anniversaire aujourd\'hui !' : 'fête son anniversaire aujourd\'hui !';
+          textHtml += '🎂 Joyeux anniversaire à ' + noms + ' qui ' + verbe;
+        } else {
+          textHtml += '🎉 Anniversaires à venir';
+        }
+        if (bientot.length > 0) {
+          textHtml += '<span class="banner-soon">Bientôt : ' + bientot.map(formatPerson).join(', ') + '</span>';
+        }
+
+        card.innerHTML = sparkle +
+          '<div class="banner-inner">' +
+            '<div class="banner-badge">🎂</div>' +
+            '<div>' +
+              '<p class="banner-eyebrow">Anniversaires</p>' +
+              '<div class="banner-text">' + textHtml + '</div>' +
+            '</div>' +
+          '</div>';
+
+        wrap.appendChild(card);
+        return wrap;
+      }
+
+      function findNavyAnchor() {
+        var sections = document.querySelectorAll('section');
+        for (var i = 0; i < sections.length; i++) {
+          var s = sections[i].getAttribute('style') || '';
+          if (s.indexOf('var(--navy)') !== -1 && s.indexOf('linear-gradient') !== -1) {
+            return sections[i];
+          }
+        }
+        return null;
+      }
+
       function afficherBandeau() {
         fetch(URL_JSON, { cache: 'no-store' })
           .then(function (res) { return res.json(); })
           .then(function (data) {
-            var aujourdhui = data.aujourdhui || [];
-            var bientot = data.bientot || [];
-            if (aujourdhui.length === 0 && bientot.length === 0) return;
+            var wrap = buildCard(data);
+            if (!wrap) return;
 
-            var el = document.createElement('div');
-            el.id = 'bandeau-anniversaires';
-
-            var html = '';
-            if (aujourdhui.length > 0) {
-              var noms = aujourdhui.map(function (p) { return p.prenom + ' ' + p.nom; }).join(', ');
-              var verbe = aujourdhui.length > 1 ? 'fêtent leur anniversaire' : 'fête son anniversaire';
-              html += '<span class="emoji">🎂</span><strong>Joyeux anniversaire</strong> à ' + noms + ' qui ' + verbe + ' aujourd\'hui !';
-            }
-            if (bientot.length > 0) {
-              var items = bientot.map(function (p) {
-                var j = p.joursRestants === 1 ? 'demain' : ('dans ' + p.joursRestants + ' jours');
-                return p.prenom + ' ' + p.nom + ' (' + j + ')';
-              }).join(', ');
-              html += '<span class="bientot">🎉 Bientôt : ' + items + '</span>';
+            var navySection = findNavyAnchor();
+            if (navySection && navySection.parentElement && navySection.parentElement.parentNode) {
+              var wrapperDiv = navySection.parentElement;
+              wrapperDiv.parentNode.insertBefore(wrap, wrapperDiv);
+            } else {
+              document.body.insertBefore(wrap, document.body.firstChild);
             }
 
-            el.innerHTML = html;
-            el.style.display = 'block';
-            document.body.insertBefore(el, document.body.firstChild);
+            requestAnimationFrame(function () {
+              wrap.classList.add('visible');
+            });
           })
           .catch(function (err) {
             console.warn('Bandeau anniversaires : impossible de charger', err);
           });
       }
 
-      // Attend que la page (y compris la mascotte) ait fini de se charger avant d'insérer le bandeau
       if (document.readyState === 'complete') {
         setTimeout(afficherBandeau, 800);
       } else {
