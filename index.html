@@ -389,19 +389,54 @@ document.addEventListener('DOMContentLoaded', async function() {
   </script>
 
   <!-- Ajustement mascotte + grille des cartes outils sur mobile (ne touche pas au desktop) -->
-  <style>
-    @media (max-width: 640px) {
-      #mascot-wrap {
-        width: 92px !important;
-        right: -4px !important;
-        bottom: -22px !important;
+  <script>
+    (function () {
+      function appliquerStylesMobile() {
+        var estMobile = window.matchMedia('(max-width: 640px)').matches;
+
+        var mascotWrap = document.getElementById('mascot-wrap');
+        if (mascotWrap) {
+          if (estMobile) {
+            mascotWrap.style.setProperty('width', '92px', 'important');
+            mascotWrap.style.setProperty('right', '-4px', 'important');
+            mascotWrap.style.setProperty('bottom', '-22px', 'important');
+          } else {
+            mascotWrap.style.removeProperty('width');
+            mascotWrap.style.removeProperty('right');
+            mascotWrap.style.removeProperty('bottom');
+          }
+        }
+
+        var grid = document.getElementById('demarches-grid');
+        if (grid) {
+          if (estMobile) {
+            grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
+            grid.style.setProperty('gap', '12px', 'important');
+          } else {
+            grid.style.removeProperty('grid-template-columns');
+            grid.style.removeProperty('gap');
+          }
+        }
       }
-      #demarches-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+
+      function tenterApplication(essaisRestants) {
+        var ok = document.getElementById('mascot-wrap') && document.getElementById('demarches-grid');
+        appliquerStylesMobile();
+        if (!ok && essaisRestants > 0) {
+          setTimeout(function () { tenterApplication(essaisRestants - 1); }, 400);
+        }
       }
-    }
-  </style>
+
+      window.addEventListener('resize', appliquerStylesMobile);
+      window.addEventListener('orientationchange', appliquerStylesMobile);
+
+      if (document.readyState === 'complete') {
+        setTimeout(function () { tenterApplication(20); }, 500);
+      } else {
+        window.addEventListener('load', function () { setTimeout(function () { tenterApplication(20); }, 500); });
+      }
+    })();
+  </script>
 
   <!-- Réorganisation complète : Directeur, puis Question RH, puis Trombinoscope (repère fixe) -->
   <script>
