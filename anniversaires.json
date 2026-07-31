@@ -1,1 +1,20 @@
-{}
+{
+  "generatedAt": "2026-07-31T11:42:14.130Z",
+  "aujourdhui": [],
+  "bientot": [
+    {
+      "nom": "PICHARD-LECONTE",
+      "prenom": "Aurelie",
+      "societe": "CHATO",
+      "groupe": "GO",
+      "joursRestants": 1
+    },
+    {
+      "nom": "BAUDIN",
+      "prenom": "Camille",
+      "societe": "MANSO",
+      "groupe": "EDGARD",
+      "joursRestants": 2
+    }
+  ]
+}
