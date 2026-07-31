@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
   </style>
 
-  <!-- Réorganisation : Espace directeur passe avant la question RH -->
+  <!-- Réorganisation complète : Directeur, puis Question RH, puis Trombinoscope (repère fixe) -->
   <script>
     (function () {
       var DONE = false;
@@ -416,35 +416,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         return null;
       }
 
-      function tenterReorganisation(essaisRestants) {
-        if (DONE) return;
-
-        var titreQRH = findByText('h2', 'Une question pour le service RH');
-        var labelDirecteur = findByText('p', 'Espace directeur');
-
-        if ((!titreQRH || !labelDirecteur) && essaisRestants > 0) {
-          setTimeout(function () { tenterReorganisation(essaisRestants - 1); }, 400);
-          return;
-        }
-        if (!titreQRH || !labelDirecteur) return;
-
-        var sectionQRH = titreQRH.closest('section');
-        var sectionDirecteur = labelDirecteur.nextElementSibling;
-
-        if (!sectionQRH || !sectionDirecteur || labelDirecteur.parentNode !== sectionQRH.parentNode) return;
-
-        // Identifiants fiables pour que les scripts suivants (anniversaires, petits nouveaux)
-        // sachent se positionner sans ambiguïté, peu importe l'ordre de chargement.
-        sectionQRH.id = 'section-question-rh';
-        sectionDirecteur.id = 'section-directeur';
-
-        var parent = sectionQRH.parentNode;
-        parent.insertBefore(labelDirecteur, sectionQRH);
-        parent.insertBefore(sectionDirecteur, sectionQRH);
-
-        DONE = true;
-      }
-
       function findTrombinoscopeSection() {
         var sections = document.querySelectorAll('section');
         for (var i = 0; i < sections.length; i++) {
@@ -453,17 +424,45 @@ document.addEventListener('DOMContentLoaded', async function() {
         return null;
       }
 
-      function marquerTrombinoscope(essaisRestants) {
-        var t = findTrombinoscopeSection();
-        if (t) { t.id = t.id || 'section-trombinoscope'; return; }
-        if (essaisRestants > 0) setTimeout(function () { marquerTrombinoscope(essaisRestants - 1); }, 400);
+      function tenterReorganisation(essaisRestants) {
+        if (DONE) return;
+
+        var titreQRH = findByText('h2', 'Une question pour le service RH');
+        var labelDirecteur = findByText('p', 'Espace directeur');
+        var sectionTrombi = findTrombinoscopeSection();
+
+        if ((!titreQRH || !labelDirecteur || !sectionTrombi) && essaisRestants > 0) {
+          setTimeout(function () { tenterReorganisation(essaisRestants - 1); }, 400);
+          return;
+        }
+        if (!titreQRH || !labelDirecteur || !sectionTrombi) return;
+
+        var sectionQRH = titreQRH.closest('section');
+        var sectionDirecteur = labelDirecteur.nextElementSibling;
+
+        if (!sectionQRH || !sectionDirecteur) return;
+        if (labelDirecteur.parentNode !== sectionQRH.parentNode || sectionTrombi.parentNode !== sectionQRH.parentNode) return;
+
+        // Le trombinoscope est le repère fixe : on place Directeur puis Question RH juste avant lui,
+        // dans cet ordre. Les encarts anniversaires / petits nouveaux s'inséreront ensuite, eux aussi
+        // juste avant le trombinoscope, en se positionnant après ce qui est déjà là.
+        var parent = sectionTrombi.parentNode;
+        parent.insertBefore(labelDirecteur, sectionTrombi);
+        parent.insertBefore(sectionDirecteur, sectionTrombi);
+        parent.insertBefore(sectionQRH, sectionTrombi);
+
+        sectionTrombi.id = sectionTrombi.id || 'section-trombinoscope';
+        sectionQRH.id = 'section-question-rh';
+        sectionDirecteur.id = 'section-directeur';
+
+        DONE = true;
       }
 
       if (document.readyState === 'complete') {
-        setTimeout(function () { tenterReorganisation(15); marquerTrombinoscope(15); }, 600);
+        setTimeout(function () { tenterReorganisation(20); }, 600);
       } else {
         window.addEventListener('load', function () {
-          setTimeout(function () { tenterReorganisation(15); marquerTrombinoscope(15); }, 600);
+          setTimeout(function () { tenterReorganisation(20); }, 600);
         });
       }
     })();
