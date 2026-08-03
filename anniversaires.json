@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-07-31T12:03:17.014Z",
+  "generatedAt": "2026-08-03T12:41:57.477Z",
   "aujourdhui": [],
   "bientot": [
     {
-      "nom": "PICHARD-LECONTE",
-      "prenom": "Aurelie",
-      "societe": "CHATO",
-      "groupe": "GO",
-      "joursRestants": 1,
-      "dateAffichage": "01/08"
-    },
-    {
-      "nom": "BAUDIN",
-      "prenom": "Camille",
-      "societe": "MANSO",
+      "nom": "ZAOUI",
+      "prenom": "Marina",
+      "societe": "CAENPO",
       "groupe": "EDGARD",
       "joursRestants": 2,
-      "dateAffichage": "02/08"
+      "dateAffichage": "05/08"
+    },
+    {
+      "nom": "BILLARD",
+      "prenom": "Francois",
+      "societe": "CHATO",
+      "groupe": "GO",
+      "joursRestants": 3,
+      "dateAffichage": "06/08"
     }
   ]
 }
