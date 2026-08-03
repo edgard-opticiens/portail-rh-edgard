@@ -401,9 +401,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             mascotWrap.style.setProperty('right', '-4px', 'important');
             mascotWrap.style.setProperty('bottom', '-22px', 'important');
           } else {
-            mascotWrap.style.removeProperty('width');
-            mascotWrap.style.removeProperty('right');
-            mascotWrap.style.removeProperty('bottom');
+            // Valeurs d'origine du desktop remises explicitement (ne jamais utiliser removeProperty
+            // ici : ça supprimerait aussi la taille de base définie dans le style inline d'origine).
+            mascotWrap.style.setProperty('width', '172px', 'important');
+            mascotWrap.style.setProperty('right', '6px', 'important');
+            mascotWrap.style.setProperty('bottom', '-54px', 'important');
           }
         }
 
@@ -413,8 +415,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             grid.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
             grid.style.setProperty('gap', '12px', 'important');
           } else {
-            grid.style.removeProperty('grid-template-columns');
-            grid.style.removeProperty('gap');
+            grid.style.setProperty('grid-template-columns', 'repeat(3, 1fr)', 'important');
+            grid.style.setProperty('gap', '18px', 'important');
           }
         }
       }
