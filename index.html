@@ -598,25 +598,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     (function () {
       var URL_JSON = 'https://edgard-opticiens.github.io/portail-rh-edgard/nouveaux-arrivants.json';
       var INSERTED = false;
+      var gridEl = null;
 
-      var style = document.createElement('style');
-      style.textContent =
-        '.pn-card{display:flex;flex-direction:column;align-items:center;gap:8px;width:104px;text-align:center}' +
-        '.pn-photo-wrap{position:relative;width:64px;height:64px}' +
-        '.pn-photo,.pn-initials{width:100%;height:100%;border-radius:50%;object-fit:cover;' +
-          'border:2px solid #A97A2E;display:flex;align-items:center;justify-content:center;' +
-          'font-family:Fraunces,serif;font-weight:700;font-size:1.1rem;color:#A97A2E;' +
-          'background:rgba(169,122,46,.14);box-sizing:border-box}' +
-        '.pn-photo{display:block;background:none}' +
-        '@media(max-width:640px){' +
-          '#section-petits-nouveaux{padding:20px 16px!important}' +
-          '#section-petits-nouveaux > div:last-child{display:grid!important;' +
-            'grid-template-columns:repeat(3,1fr);gap:12px 8px!important;justify-items:center}' +
-          '.pn-card{width:100%}' +
-          '.pn-photo-wrap{width:74px;height:74px}' +
-        '}' +
-        '@media(max-width:360px){.pn-photo-wrap{width:64px;height:64px}}';
-      document.head.appendChild(style);
+      function estMobile() { return window.innerWidth <= 640; }
 
       function initiales(prenom, nom) {
         var a = (prenom || '').charAt(0);
@@ -625,14 +609,19 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
 
       function carteAvatar(p) {
+        var photoSize = estMobile() ? '72px' : '64px';
+        var cardWidth = estMobile() ? '100%' : '104px';
+        var photoStyle = 'width:' + photoSize + '; height:' + photoSize + '; border-radius:50%; object-fit:cover; border:2px solid #A97A2E; display:block;';
+        var initialsStyle = 'width:' + photoSize + '; height:' + photoSize + '; border-radius:50%; background:rgba(169,122,46,.14); border:2px solid #A97A2E; align-items:center; justify-content:center; font-family:Fraunces,serif; font-weight:700; font-size:1.1rem; color:#A97A2E; box-sizing:border-box;';
+
         var img = p.photoUrl
-          ? '<img src="' + p.photoUrl + '" alt="' + p.prenom + ' ' + p.nom + '" class="pn-photo" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-            '<div class="pn-initials" style="display:none;">' + initiales(p.prenom, p.nom) + '</div>'
-          : '<div class="pn-initials">' + initiales(p.prenom, p.nom) + '</div>';
+          ? '<img src="' + p.photoUrl + '" alt="' + p.prenom + ' ' + p.nom + '" style="' + photoStyle + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+            '<div style="display:none; ' + initialsStyle + '">' + initiales(p.prenom, p.nom) + '</div>'
+          : '<div style="display:flex; ' + initialsStyle + '">' + initiales(p.prenom, p.nom) + '</div>';
 
         return (
-          '<div class="pn-card">' +
-            '<div class="pn-photo-wrap">' + img + '</div>' +
+          '<div style="display:flex; flex-direction:column; align-items:center; gap:8px; width:' + cardWidth + '; text-align:center; box-sizing:border-box;">' +
+            '<div style="position:relative; width:' + photoSize + '; height:' + photoSize + ';">' + img + '</div>' +
             '<div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;">' +
               '<div style="font-size:.78rem; font-weight:700; color:#1C1710; line-height:1.3;">' + p.prenom + '<\/div>' +
               '<div style="font-size:.72rem; font-weight:600; color:#1C1710; line-height:1.3; text-transform:uppercase;">' + p.nom + '<\/div>' +
@@ -640,6 +629,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             '<\/div>' +
           '<\/div>'
         );
+      }
+
+      function styleGrille() {
+        if (estMobile()) {
+          return 'display:grid; grid-template-columns:repeat(3,1fr); gap:10px 8px;';
+        }
+        return 'display:flex; flex-wrap:wrap; gap:18px;';
       }
 
       function buildSection(data) {
@@ -651,16 +647,24 @@ document.addEventListener('DOMContentLoaded', async function() {
         section.setAttribute('style',
           'position:relative; overflow:hidden; margin-top:18px; border-radius:24px; ' +
           'background:linear-gradient(135deg, rgba(169,122,46,.09), rgba(217,174,110,.15)); ' +
-          'border:1.5px solid rgba(169,122,46,.35); padding:26px 30px; ' +
+          'border:1.5px solid rgba(169,122,46,.35); padding:' + (estMobile() ? '20px 16px' : '26px 30px') + '; ' +
           'box-shadow:0 20px 40px -28px rgba(169,122,46,.4); font-family:-apple-system,BlinkMacSystemFont,sans-serif;'
         );
 
         var eyebrow = '<p style="font-size:.72rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#A97A2E; margin:0 0 6px;">Ils viennent d\'arriver</p>';
         var titre = '<h2 style="font-family:Fraunces,serif; font-size:1.5rem; font-weight:700; letter-spacing:-.01em; margin:0 0 16px; color:#1C1710;">Les petits nouveaux</h2>';
 
-        var avatars = '<div style="display:flex; flex-wrap:wrap; gap:18px;">' + nouveaux.map(carteAvatar).join('') + '<\/div>';
+        var grille = document.createElement('div');
+        grille.setAttribute('style', styleGrille());
+        nouveaux.forEach(function (p) {
+          var wrap = document.createElement('div');
+          wrap.innerHTML = carteAvatar(p);
+          grille.appendChild(wrap.firstElementChild);
+        });
+        gridEl = grille;
 
-        section.innerHTML = eyebrow + titre + avatars;
+        section.innerHTML = eyebrow + titre;
+        section.appendChild(grille);
         return section;
       }
 
@@ -679,6 +683,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         anchor.parentNode.insertBefore(section, anchor);
         INSERTED = true;
+
+        var resizeTimer = null;
+        window.addEventListener('resize', function () {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            if (gridEl) gridEl.setAttribute('style', styleGrille());
+          }, 150);
+        });
       }
 
       function afficherNouveaux() {
