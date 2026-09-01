@@ -1,38 +1,14 @@
 {
-  "generatedAt": "2026-08-03T12:46:21.370Z",
+  "generatedAt": "2026-09-01T09:22:50.529Z",
   "aujourdhui": [],
   "bientot": [
     {
-      "nom": "ZAOUI",
-      "prenom": "Marina",
-      "societe": "CAENPO",
+      "nom": "SAINT DENIS",
+      "prenom": "Alix",
+      "societe": "TURO",
       "groupe": "EDGARD",
-      "joursRestants": 2,
-      "dateAffichage": "05/08"
-    },
-    {
-      "nom": "BILLARD",
-      "prenom": "Francois",
-      "societe": "CHATO",
-      "groupe": "GO",
-      "joursRestants": 3,
-      "dateAffichage": "06/08"
-    },
-    {
-      "nom": "BRECK",
-      "prenom": "Karen",
-      "societe": "ECUME",
-      "groupe": "GO",
-      "joursRestants": 4,
-      "dateAffichage": "07/08"
-    },
-    {
-      "nom": "BARDIN",
-      "prenom": "Julien",
-      "societe": "NANTO",
-      "groupe": "EDGARD",
-      "joursRestants": 5,
-      "dateAffichage": "08/08"
+      "joursRestants": 7,
+      "dateAffichage": "08/09"
     }
   ]
 }
