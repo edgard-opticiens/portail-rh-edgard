@@ -503,18 +503,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     })();
   </script>
 
-  <!-- Encart anniversaires : toujours juste avant "Les petits nouveaux" (ou avant le trombinoscope si absent) -->
+  <!-- Encarts Anniversaires + Petits nouveaux : script unique, ordre garanti, avant le trombinoscope -->
   <script>
     (function () {
-      var URL_JSON = 'https://edgard-opticiens.github.io/portail-rh-edgard/anniversaires.json';
-      var INSERTED = false;
+      var URL_ANNIV = 'https://edgard-opticiens.github.io/portail-rh-edgard/anniversaires.json';
+      var URL_NOUV  = 'https://edgard-opticiens.github.io/portail-rh-edgard/nouveaux-arrivants.json';
+      var gridEl = null;
 
+      function estMobile() { return window.innerWidth <= 640; }
+
+      // ---------- Anniversaires ----------
       function formatPerson(p) {
         var societe = (p.societe || '').toUpperCase();
         var nom = (p.nom || '').toUpperCase();
         return (societe ? societe + '-' : '') + nom + ' ' + p.prenom + ' (' + p.dateAffichage + ')';
       }
-
       function ligneAvatar(p) {
         return (
           '<div style="display:flex; align-items:center; gap:12px;">' +
@@ -523,12 +526,10 @@ document.addEventListener('DOMContentLoaded', async function() {
           '<\/div>'
         );
       }
-
-      function buildSection(data) {
+      function buildAnniversaires(data) {
         var aujourdhui = data.aujourdhui || [];
         var bientot = data.bientot || [];
         if (aujourdhui.length === 0 && bientot.length === 0) return null;
-
         var section = document.createElement('section');
         section.id = 'section-anniversaires';
         section.setAttribute('style',
@@ -537,91 +538,34 @@ document.addEventListener('DOMContentLoaded', async function() {
           'border:1.5px solid rgba(169,122,46,.35); padding:26px 30px; ' +
           'box-shadow:0 20px 40px -28px rgba(169,122,46,.4); font-family:-apple-system,BlinkMacSystemFont,sans-serif;'
         );
-
         var eyebrow = '<p style="font-size:.72rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#A97A2E; margin:0 0 6px;">🎉 Anniversaires<\/p>';
         var titre = aujourdhui.length > 0
           ? '<h2 style="font-family:Fraunces,serif; font-size:1.5rem; font-weight:700; letter-spacing:-.01em; margin:0 0 16px; color:#1C1710;">Joyeux anniversaire !<\/h2>'
           : '<h2 style="font-family:Fraunces,serif; font-size:1.5rem; font-weight:700; letter-spacing:-.01em; margin:0 0 16px; color:#1C1710;">Anniversaires à venir<\/h2>';
-
         var lignes = '<div style="display:flex; flex-direction:column; gap:12px;">' +
-          aujourdhui.map(ligneAvatar).join('') +
-          bientot.map(ligneAvatar).join('') +
-          '<\/div>';
-
+          aujourdhui.map(ligneAvatar).join('') + bientot.map(ligneAvatar).join('') + '<\/div>';
         section.innerHTML = eyebrow + titre + lignes;
         return section;
       }
 
-      function trouverAncre() {
-        // Priorite : juste avant "Les petits nouveaux" s'il existe deja, sinon avant le trombinoscope
-        return document.getElementById('section-petits-nouveaux') || document.getElementById('section-trombinoscope');
-      }
-
-      function tenterInsertion(data, essaisRestants) {
-        if (INSERTED) return;
-        var anchor = trouverAncre();
-
-        if (!anchor && essaisRestants > 0) {
-          setTimeout(function () { tenterInsertion(data, essaisRestants - 1); }, 400);
-          return;
-        }
-        if (!anchor) return;
-
-        var section = buildSection(data);
-        if (!section) return;
-
-        anchor.parentNode.insertBefore(section, anchor);
-        INSERTED = true;
-      }
-
-      function afficherAnniversaires() {
-        fetch(URL_JSON, { cache: 'no-store' })
-          .then(function (res) { return res.json(); })
-          .then(function (data) {
-            tenterInsertion(data, 20);
-          })
-          .catch(function (err) {
-            console.warn('Anniversaires : impossible de charger', err);
-          });
-      }
-
-      if (document.readyState === 'complete') {
-        setTimeout(afficherAnniversaires, 700);
-      } else {
-        window.addEventListener('load', function () { setTimeout(afficherAnniversaires, 700); });
-      }
-    })();
-  </script>
-
-  <!-- Encart "Les petits nouveaux" : toujours juste avant le trombinoscope -->
-  <script>
-    (function () {
-      var URL_JSON = 'https://edgard-opticiens.github.io/portail-rh-edgard/nouveaux-arrivants.json';
-      var INSERTED = false;
-      var gridEl = null;
-
-      function estMobile() { return window.innerWidth <= 640; }
-
+      // ---------- Petits nouveaux ----------
       function initiales(prenom, nom) {
         var a = (prenom || '').charAt(0);
         var b = (nom || '').charAt(0);
         return (a + b).toUpperCase();
       }
-
       function carteAvatar(p) {
         var photoSize = estMobile() ? '72px' : '64px';
         var cardWidth = estMobile() ? '100%' : '104px';
         var photoStyle = 'width:' + photoSize + '; height:' + photoSize + '; border-radius:50%; object-fit:cover; border:2px solid #A97A2E; display:block;';
         var initialsStyle = 'width:' + photoSize + '; height:' + photoSize + '; border-radius:50%; background:rgba(169,122,46,.14); border:2px solid #A97A2E; align-items:center; justify-content:center; font-family:Fraunces,serif; font-weight:700; font-size:1.1rem; color:#A97A2E; box-sizing:border-box;';
-
         var img = p.photoUrl
           ? '<img src="' + p.photoUrl + '" alt="' + p.prenom + ' ' + p.nom + '" style="' + photoStyle + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-            '<div style="display:none; ' + initialsStyle + '">' + initiales(p.prenom, p.nom) + '</div>'
-          : '<div style="display:flex; ' + initialsStyle + '">' + initiales(p.prenom, p.nom) + '</div>';
-
+            '<div style="display:none; ' + initialsStyle + '">' + initiales(p.prenom, p.nom) + '<\/div>'
+          : '<div style="display:flex; ' + initialsStyle + '">' + initiales(p.prenom, p.nom) + '<\/div>';
         return (
           '<div style="display:flex; flex-direction:column; align-items:center; gap:8px; width:' + cardWidth + '; text-align:center; box-sizing:border-box;">' +
-            '<div style="position:relative; width:' + photoSize + '; height:' + photoSize + ';">' + img + '</div>' +
+            '<div style="position:relative; width:' + photoSize + '; height:' + photoSize + ';">' + img + '<\/div>' +
             '<div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;">' +
               '<div style="font-size:.78rem; font-weight:700; color:#1C1710; line-height:1.3;">' + p.prenom + '<\/div>' +
               '<div style="font-size:.72rem; font-weight:600; color:#1C1710; line-height:1.3; text-transform:uppercase;">' + p.nom + '<\/div>' +
@@ -630,18 +574,13 @@ document.addEventListener('DOMContentLoaded', async function() {
           '<\/div>'
         );
       }
-
       function styleGrille() {
-        if (estMobile()) {
-          return 'display:grid; grid-template-columns:repeat(3,1fr); gap:10px 8px;';
-        }
+        if (estMobile()) { return 'display:grid; grid-template-columns:repeat(3,1fr); gap:10px 8px;'; }
         return 'display:flex; flex-wrap:wrap; gap:18px;';
       }
-
-      function buildSection(data) {
+      function buildNouveaux(data) {
         var nouveaux = data.nouveaux || [];
         if (nouveaux.length === 0) return null;
-
         var section = document.createElement('section');
         section.id = 'section-petits-nouveaux';
         section.setAttribute('style',
@@ -650,10 +589,8 @@ document.addEventListener('DOMContentLoaded', async function() {
           'border:1.5px solid rgba(169,122,46,.35); padding:' + (estMobile() ? '20px 16px' : '26px 30px') + '; ' +
           'box-shadow:0 20px 40px -28px rgba(169,122,46,.4); font-family:-apple-system,BlinkMacSystemFont,sans-serif;'
         );
-
-        var eyebrow = '<p style="font-size:.72rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#A97A2E; margin:0 0 6px;">Ils viennent d\'arriver</p>';
-        var titre = '<h2 style="font-family:Fraunces,serif; font-size:1.5rem; font-weight:700; letter-spacing:-.01em; margin:0 0 16px; color:#1C1710;">Les petits nouveaux</h2>';
-
+        var eyebrow = '<p style="font-size:.72rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#A97A2E; margin:0 0 6px;">Ils viennent d\'arriver<\/p>';
+        var titre = '<h2 style="font-family:Fraunces,serif; font-size:1.5rem; font-weight:700; letter-spacing:-.01em; margin:0 0 16px; color:#1C1710;">Les petits nouveaux<\/h2>';
         var grille = document.createElement('div');
         grille.setAttribute('style', styleGrille());
         nouveaux.forEach(function (p) {
@@ -662,52 +599,46 @@ document.addEventListener('DOMContentLoaded', async function() {
           grille.appendChild(wrap.firstElementChild);
         });
         gridEl = grille;
-
         section.innerHTML = eyebrow + titre;
         section.appendChild(grille);
         return section;
       }
 
-      function tenterInsertion(data, essaisRestants) {
-        if (INSERTED) return;
-        var anchor = document.getElementById('section-trombinoscope');
+      // ---------- Insertion coordonnée, ordre garanti ----------
+      function inserer(anchor, section) {
+        if (section) anchor.parentNode.insertBefore(section, anchor);
+      }
 
-        if (!anchor && essaisRestants > 0) {
-          setTimeout(function () { tenterInsertion(data, essaisRestants - 1); }, 400);
+      function demarrer(essaisRestants) {
+        var trombi = document.getElementById('section-trombinoscope');
+        if (!trombi) {
+          if (essaisRestants > 0) { setTimeout(function () { demarrer(essaisRestants - 1); }, 300); }
           return;
         }
-        if (!anchor) return;
+        Promise.all([
+          fetch(URL_ANNIV, { cache: 'no-store' }).then(function (r) { return r.json(); }).catch(function () { return null; }),
+          fetch(URL_NOUV,  { cache: 'no-store' }).then(function (r) { return r.json(); }).catch(function () { return null; })
+        ]).then(function (results) {
+          var annivData = results[0];
+          var nouvData  = results[1];
+          // Ordre garanti : Anniversaires, puis Petits nouveaux, toujours juste avant le Trombinoscope
+          if (annivData) inserer(trombi, buildAnniversaires(annivData));
+          if (nouvData)  inserer(trombi, buildNouveaux(nouvData));
 
-        var section = buildSection(data);
-        if (!section) return;
-
-        anchor.parentNode.insertBefore(section, anchor);
-        INSERTED = true;
-
-        var resizeTimer = null;
-        window.addEventListener('resize', function () {
-          if (resizeTimer) clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(function () {
-            if (gridEl) gridEl.setAttribute('style', styleGrille());
-          }, 150);
+          if (gridEl) {
+            var resizeTimer = null;
+            window.addEventListener('resize', function () {
+              if (resizeTimer) clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(function () { if (gridEl) gridEl.setAttribute('style', styleGrille()); }, 150);
+            });
+          }
         });
       }
 
-      function afficherNouveaux() {
-        fetch(URL_JSON, { cache: 'no-store' })
-          .then(function (res) { return res.json(); })
-          .then(function (data) {
-            tenterInsertion(data, 20);
-          })
-          .catch(function (err) {
-            console.warn('Les petits nouveaux : impossible de charger', err);
-          });
-      }
-
       if (document.readyState === 'complete') {
-        setTimeout(afficherNouveaux, 700);
+        demarrer(20);
       } else {
-        window.addEventListener('load', function () { setTimeout(afficherNouveaux, 700); });
+        window.addEventListener('load', function () { demarrer(20); });
       }
     })();
   </script>
