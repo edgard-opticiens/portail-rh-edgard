@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-09-16T06:27:14.888Z",
+  "items": [
+    {
+      "id": "r1789540034616-5j7ex1",
+      "date": "2026-09-16",
+      "horodatage": "2026-09-16T06:27:14.616Z",
+      "marque": "Edgard Développement",
+      "magasin": "Test technique",
+      "nom": "Jonathan",
+      "objet": "Test de la chaîne complète",
+      "description": "Ceci est un envoi de test pour vérifier GitHub + OneSignal.",
+      "urgence": "urgent",
+      "statut": "nouveau"
+    }
+  ]
+}
