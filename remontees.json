@@ -1,6 +1,18 @@
 {
-  "generatedAt": "2026-09-16T06:36:26.372Z",
+  "generatedAt": "2026-09-16T06:53:45.836Z",
   "items": [
+    {
+      "id": "r1789541625563-12s24d",
+      "date": "2026-09-16",
+      "horodatage": "2026-09-16T06:53:45.563Z",
+      "marque": "Edgard Opticiens",
+      "magasin": "Test Nice Masséna",
+      "nom": "Jonathan",
+      "objet": "Test notification push",
+      "description": "Ceci est un test end-to-end après bascule sur le nouveau repo.",
+      "urgence": "urgent",
+      "statut": "nouveau"
+    },
     {
       "id": "r1789540586004-gtqmyb",
       "date": "2026-09-16",
