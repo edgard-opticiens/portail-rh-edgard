@@ -162,6 +162,69 @@ footer.foot{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);fo
 .sent-box .tick{width:54px;height:54px;border-radius:50%;background:var(--spark-soft);color:var(--spark);display:grid;place-items:center;margin:0 auto 14px;font-size:26px}
 .sent-box h3{font-size:1.25rem;font-weight:700;margin:0 0 8px;color:var(--ink)}
 .sent-box p{font-size:.92rem;color:var(--muted);margin:0 0 18px;line-height:1.5}
+
+@media(max-width:640px){
+  .wrap{padding:28px 16px 48px}
+  .topbar{gap:10px}
+  .clockrow{gap:8px}
+  .clockrow svg{width:40px!important;height:40px!important}
+  .clockrow .time{font-size:1.08rem}
+  .clockrow .date{font-size:.72rem}
+  .clockrow .week{font-size:.66rem}
+
+  .eyebrow{margin:0 0 6px}
+  .hero-sub{font-size:.92rem}
+
+  .hero-band-wrap{margin-top:22px}
+  .hero-band{padding:24px 20px;padding-right:104px;border-radius:20px}
+  .hero-band .wordmark{font-size:1.55rem}
+  .hero-band p.lede{font-size:.9rem;margin-top:12px}
+  .hero-band .kicker{margin-bottom:12px}
+  #mascot-wrap{width:82px;right:2px;bottom:-22px}
+
+  .section-label{margin:34px 0 0;font-size:.68rem}
+  #demarches-grid{gap:14px}
+  .edg-card .inner{padding:20px 18px;gap:11px;border-radius:18px}
+  .edg-card h2{font-size:1.08rem;min-height:0}
+  .edg-card p{font-size:.87rem}
+  .badge{width:40px;height:40px}
+  .badge svg{width:20px;height:20px}
+  .btn-open,.btn-proc{font-size:.82rem;padding:9px 13px}
+
+  .trombi,.rh-callout{padding:20px 18px;gap:16px;border-radius:18px}
+  .trombi{flex-direction:column;align-items:flex-start}
+  .swatchgrid{width:120px}
+  .trombi-copy h2,.rh-callout .copy h2{font-size:1.2rem}
+  .trombi-copy p,.rh-callout .copy p{font-size:.87rem}
+  .rh-callout{align-items:flex-start}
+  .rh-callout .imgwrap{width:64px}
+  .btn-gold,.btn-navy{padding:11px 18px;font-size:.86rem;width:100%;justify-content:center}
+
+  .dir-section{padding:20px 16px;border-radius:18px}
+  .dir-locked-head{gap:12px}
+  .dir-locked-head h3{font-size:1.1rem}
+  .dir-locked-head p{font-size:.86rem}
+  .dir-form{flex-direction:column}
+  .dir-form input,.dir-form button{width:100%;min-width:0}
+  .dir-grid{gap:14px}
+  .dir-card{padding:18px 16px;border-radius:16px}
+  .dir-card h2{font-size:1.02rem;min-height:0}
+
+  .banner-warm{padding:20px 16px;border-radius:18px}
+  .banner-warm h2{font-size:1.25rem;margin-bottom:12px}
+
+  footer.foot{margin-top:36px;font-size:.76rem}
+
+  .overlay{padding:12px}
+  .modal{padding:22px 18px 20px;border-radius:18px;max-height:88vh}
+  .modal h2{font-size:1.3rem;margin-right:26px}
+}
+
+@media(max-width:380px){
+  .hero-band{padding-right:88px}
+  #mascot-wrap{width:68px}
+  .hero-band .wordmark{font-size:1.35rem}
+}
 </style>
 
 <div class="blob" style="top:-120px;right:-140px;width:420px;height:420px;background:radial-gradient(circle,var(--spark-soft),transparent 70%);animation:drift 14s ease-in-out infinite"></div>
@@ -343,7 +406,8 @@ footer.foot{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);fo
     acompte: {bg:'var(--spark-soft)', fg:'var(--spark)'},
     clock: {bg:'var(--gold-soft)', fg:'var(--gold)'},
     solde: {bg:'var(--spark-soft)', fg:'var(--spark)'},
-    tournant: {bg:'var(--spark-soft)', fg:'var(--spark)'}
+    tournant: {bg:'var(--spark-soft)', fg:'var(--spark)'},
+    profil: {bg:'var(--gold-soft)', fg:'var(--gold)'}
   };
   var ICON_PATHS = {
     calendar:'<rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M3 9h18M8 2v4M16 2v4"></path>',
@@ -352,7 +416,8 @@ footer.foot{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);fo
     acompte:'<rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.6"></circle><path d="M5.5 12h.01M18.5 12h.01"></path>',
     clock:'<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
     solde:'<path d="M12 3v17M6 20h12M4 7h16"></path><path d="M4 7l-2 4.5a2.5 2.5 0 0 0 5 0z"></path><path d="M20 7l-2 4.5a2.5 2.5 0 0 0 5 0z"></path>',
-    tournant:'<path d="M17 2.1l4 4-4 4"></path><path d="M3 12.7V12a9 9 0 0 1 9-9c2.4 0 4.6.9 6.3 2.4"></path><path d="M7 21.9l-4-4 4-4"></path><path d="M21 11.3V12a9 9 0 0 1-9 9c-2.4 0-4.6-.9-6.3-2.4"></path>'
+    tournant:'<path d="M17 2.1l4 4-4 4"></path><path d="M3 12.7V12a9 9 0 0 1 9-9c2.4 0 4.6.9 6.3 2.4"></path><path d="M7 21.9l-4-4 4-4"></path><path d="M21 11.3V12a9 9 0 0 1-9 9c-2.4 0-4.6-.9-6.3-2.4"></path>',
+    profil:'<circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"></path>'
   };
 
   var OUTILS = [
@@ -362,7 +427,8 @@ footer.foot{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);fo
     { titre:"Saisir ma variable de paie", desc:"Saisie mensuelle des variables de paie (directeurs de magasin).", icone:"euro", lien:"https://edgard-opticiens.github.io/variables/" },
     { titre:"Demande d'acompte sur salaire", desc:"Demande d'un acompte sur votre salaire.", icone:"acompte", lien:"https://edgard-opticiens.github.io/acompte-edgard/" },
     { titre:"Planning apprentis", desc:"Consultez et gérez le planning des apprentis.", icone:"clock", lien:"https://edgard-opticiens.github.io/planning-apprentis/" },
-    { titre:"Soldes CP", desc:"Consultez le solde de vos congés payés.", icone:"solde", lien:"https://edgard-opticiens.github.io/soldesCP/" }
+    { titre:"Soldes CP", desc:"Consultez le solde de vos congés payés.", icone:"solde", lien:"https://edgard-opticiens.github.io/soldesCP/" },
+    { titre:"Mettre à jour mes informations", desc:"Signalez un changement (adresse, RIB, pièce d'identité, situation familiale, mutuelle, photo…) directement au service RH.", icone:"profil", lien:"https://edgard-opticiens.github.io/majinfocollab/" }
   ];
 
   var OUTILS_DIRECTEUR = [
