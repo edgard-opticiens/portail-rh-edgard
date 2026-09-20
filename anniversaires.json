@@ -1,55 +1,46 @@
 {
-  "generatedAt": "2026-09-13T04:00:10.889Z",
-  "aujourdhui": [
-    {
-      "nom": "ABDESSLAM",
-      "prenom": "Maïna",
-      "societe": "ORLO",
-      "groupe": "EDGARD",
-      "joursRestants": 0,
-      "dateAffichage": "13/09"
-    }
-  ],
+  "generatedAt": "2026-09-20T04:00:11.395Z",
+  "aujourdhui": [],
   "bientot": [
     {
-      "nom": "DOGUET",
-      "prenom": "Corinne",
-      "societe": "ECUME",
-      "groupe": "GO",
-      "joursRestants": 1,
-      "dateAffichage": "14/09"
+      "nom": "ECHALIER",
+      "prenom": "Thibault",
+      "societe": "ANGO",
+      "groupe": "EDGARD",
+      "joursRestants": 2,
+      "dateAffichage": "22/09"
     },
     {
-      "nom": "LUNETEAU",
-      "prenom": "Stéphane",
-      "societe": "BORDO",
+      "nom": "DANESHPAJOOH",
+      "prenom": "Ilia",
+      "societe": "NICEO",
+      "groupe": "EDGARD",
+      "joursRestants": 2,
+      "dateAffichage": "22/09"
+    },
+    {
+      "nom": "RANDRIANTIANA",
+      "prenom": "Gabriela",
+      "societe": "BIARRO",
       "groupe": "EDGARD",
       "joursRestants": 3,
-      "dateAffichage": "16/09"
+      "dateAffichage": "23/09"
     },
     {
-      "nom": "DUVAL",
-      "prenom": "Thomas",
-      "societe": "STRABO",
+      "nom": "GASCARD",
+      "prenom": "Jérôme",
+      "societe": "GIRO",
       "groupe": "EDGARD",
-      "joursRestants": 3,
-      "dateAffichage": "16/09"
+      "joursRestants": 6,
+      "dateAffichage": "26/09"
     },
     {
-      "nom": "RABOUILLE ",
-      "prenom": "Iris",
-      "societe": "JISAM",
-      "groupe": "EDGARD",
-      "joursRestants": 5,
-      "dateAffichage": "18/09"
-    },
-    {
-      "nom": "MILCENT",
-      "prenom": "Nolwenn",
-      "societe": "MARAIS",
+      "nom": "PROUX",
+      "prenom": "Alexandra",
+      "societe": "NIORTO",
       "groupe": "GO",
-      "joursRestants": 5,
-      "dateAffichage": "18/09"
+      "joursRestants": 6,
+      "dateAffichage": "26/09"
     }
   ]
 }
