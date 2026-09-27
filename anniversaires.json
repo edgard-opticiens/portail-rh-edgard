@@ -1,46 +1,54 @@
 {
-  "generatedAt": "2026-09-20T04:00:11.395Z",
+  "generatedAt": "2026-09-27T04:00:11.155Z",
   "aujourdhui": [],
   "bientot": [
     {
-      "nom": "ECHALIER",
-      "prenom": "Thibault",
+      "nom": "DUREL",
+      "prenom": "Bertille",
       "societe": "ANGO",
       "groupe": "EDGARD",
-      "joursRestants": 2,
-      "dateAffichage": "22/09"
+      "joursRestants": 1,
+      "dateAffichage": "28/09"
     },
     {
-      "nom": "DANESHPAJOOH",
-      "prenom": "Ilia",
-      "societe": "NICEO",
-      "groupe": "EDGARD",
-      "joursRestants": 2,
-      "dateAffichage": "22/09"
-    },
-    {
-      "nom": "RANDRIANTIANA",
-      "prenom": "Gabriela",
-      "societe": "BIARRO",
-      "groupe": "EDGARD",
-      "joursRestants": 3,
-      "dateAffichage": "23/09"
-    },
-    {
-      "nom": "GASCARD",
-      "prenom": "Jérôme",
-      "societe": "GIRO",
-      "groupe": "EDGARD",
-      "joursRestants": 6,
-      "dateAffichage": "26/09"
-    },
-    {
-      "nom": "PROUX",
-      "prenom": "Alexandra",
-      "societe": "NIORTO",
+      "nom": "TORRES",
+      "prenom": "Marie  ",
+      "societe": "CHATO",
       "groupe": "GO",
-      "joursRestants": 6,
-      "dateAffichage": "26/09"
+      "joursRestants": 1,
+      "dateAffichage": "28/09"
+    },
+    {
+      "nom": "PLET",
+      "prenom": "Charlène",
+      "societe": "CHEMILLO",
+      "groupe": "GO",
+      "joursRestants": 1,
+      "dateAffichage": "28/09"
+    },
+    {
+      "nom": "MARION",
+      "prenom": "Marjolaine",
+      "societe": "CHOLO",
+      "groupe": "GO",
+      "joursRestants": 1,
+      "dateAffichage": "28/09"
+    },
+    {
+      "nom": "DESPEIGNES",
+      "prenom": "Agathe",
+      "societe": "REIMO",
+      "groupe": "EDGARD",
+      "joursRestants": 2,
+      "dateAffichage": "29/09"
+    },
+    {
+      "nom": "DUGUET",
+      "prenom": "Céline",
+      "societe": "MUDO",
+      "groupe": "GO",
+      "joursRestants": 4,
+      "dateAffichage": "01/10"
     }
   ]
 }
