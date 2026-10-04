@@ -1,54 +1,30 @@
 {
-  "generatedAt": "2026-09-27T04:00:11.155Z",
+  "generatedAt": "2026-10-04T04:00:11.845Z",
   "aujourdhui": [],
   "bientot": [
     {
-      "nom": "DUREL",
-      "prenom": "Bertille",
-      "societe": "ANGO",
-      "groupe": "EDGARD",
-      "joursRestants": 1,
-      "dateAffichage": "28/09"
-    },
-    {
-      "nom": "TORRES",
-      "prenom": "Marie  ",
-      "societe": "CHATO",
-      "groupe": "GO",
-      "joursRestants": 1,
-      "dateAffichage": "28/09"
-    },
-    {
-      "nom": "PLET",
-      "prenom": "Charlène",
-      "societe": "CHEMILLO",
-      "groupe": "GO",
-      "joursRestants": 1,
-      "dateAffichage": "28/09"
-    },
-    {
-      "nom": "MARION",
-      "prenom": "Marjolaine",
-      "societe": "CHOLO",
-      "groupe": "GO",
-      "joursRestants": 1,
-      "dateAffichage": "28/09"
-    },
-    {
-      "nom": "DESPEIGNES",
-      "prenom": "Agathe",
+      "nom": "DESPEIGNES ",
+      "prenom": "Erwan",
       "societe": "REIMO",
       "groupe": "EDGARD",
       "joursRestants": 2,
-      "dateAffichage": "29/09"
+      "dateAffichage": "06/10"
     },
     {
-      "nom": "DUGUET",
-      "prenom": "Céline",
-      "societe": "MUDO",
+      "nom": "TETREL",
+      "prenom": "Lucie",
+      "societe": "CAENPO",
+      "groupe": "EDGARD",
+      "joursRestants": 5,
+      "dateAffichage": "09/10"
+    },
+    {
+      "nom": "LOISEAU",
+      "prenom": "Juliette",
+      "societe": "ECUME",
       "groupe": "GO",
-      "joursRestants": 4,
-      "dateAffichage": "01/10"
+      "joursRestants": 6,
+      "dateAffichage": "10/10"
     }
   ]
 }
