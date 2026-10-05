@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T04:01:08.189Z",
+  "generatedAt": "2026-10-05T04:00:46.593Z",
   "nouveaux": [
     {
       "nom": "MEYER",
@@ -7,7 +7,7 @@
       "societe": "STRABO",
       "groupe": "EDGARD",
       "dateEntreeIso": "2026-09-21",
-      "joursDepuisEntree": 7,
+      "joursDepuisEntree": 14,
       "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/MEYERMORGANE.png"
     },
     {
@@ -16,7 +16,7 @@
       "societe": "TURO",
       "groupe": "EDGARD",
       "dateEntreeIso": "2026-09-14",
-      "joursDepuisEntree": 14,
+      "joursDepuisEntree": 21,
       "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/TOUBEAUXSULLIVAN.png"
     },
     {
@@ -25,7 +25,7 @@
       "societe": "JISAM",
       "groupe": "EDGARD",
       "dateEntreeIso": "2026-09-08",
-      "joursDepuisEntree": 20,
+      "joursDepuisEntree": 27,
       "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/MARKEYFLORIE.png"
     },
     {
@@ -34,89 +34,8 @@
       "societe": "TURO",
       "groupe": "EDGARD",
       "dateEntreeIso": "2026-09-07",
-      "joursDepuisEntree": 21,
+      "joursDepuisEntree": 28,
       "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/LEROUSSEAUPAULINE.png"
-    },
-    {
-      "nom": "GRATHWOHL",
-      "prenom": "Lou-Andréa",
-      "societe": "BORDO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/GRATHWOHLLOUANDREA.png"
-    },
-    {
-      "nom": "AGUIRRE",
-      "prenom": "Romain",
-      "societe": "MARAIS",
-      "groupe": "GO",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/AGUIRREROMAIN.png"
-    },
-    {
-      "nom": "NOC",
-      "prenom": "Lancelot",
-      "societe": "NANTO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/NOCLANCELOT.png"
-    },
-    {
-      "nom": "ROCHETEAU",
-      "prenom": "Léna",
-      "societe": "NANTO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/ROCHETEAULENA.png"
-    },
-    {
-      "nom": "THOMAS ",
-      "prenom": "Chloé",
-      "societe": "NANTO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/THOMASCHLOE.png"
-    },
-    {
-      "nom": "BOIVIN ",
-      "prenom": "Naël",
-      "societe": "NIORTO",
-      "groupe": "GO",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/BOIVINNAEL.jpg"
-    },
-    {
-      "nom": "POTIN",
-      "prenom": "Mayeul",
-      "societe": "TURO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-09-01",
-      "joursDepuisEntree": 27,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/POTINMAYEUL.png"
-    },
-    {
-      "nom": "RIGHI",
-      "prenom": "Charline",
-      "societe": "MARSEILLO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-08-31",
-      "joursDepuisEntree": 28,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/RIGHICHARLINE.png"
-    },
-    {
-      "nom": "LENGELLÉ",
-      "prenom": "Dimitri",
-      "societe": "REIMO",
-      "groupe": "EDGARD",
-      "dateEntreeIso": "2026-08-31",
-      "joursDepuisEntree": 28,
-      "photoUrl": "https://edgard-opticiens.github.io/portail-rh-edgard/photos-nouveaux/LENGELLEDIMITRI.png"
     }
   ]
 }
