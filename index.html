@@ -604,12 +604,15 @@ function dirSessionGet(codes){
     if(!o||!o.soc||!o.h)return null;
     if(Date.now()-o.t>DIR_SESSION_JOURS*864e5){dirSessionClear();return null;}
     for(var k in codes){
-      if(Object.prototype.hasOwnProperty.call(codes,k)&&k.toUpperCase()===o.soc&&codes[k]&&dirHash(o.soc+':'+codes[k])===o.h){
-        o.t=Date.now();try{localStorage.setItem(DIR_SESSION_KEY,JSON.stringify(o));}catch(e){}
-        return k;
+      if(Object.prototype.hasOwnProperty.call(codes,k)&&k.toUpperCase()===o.soc){
+        if(codes[k]&&dirHash(o.soc+':'+codes[k])===o.h){
+          o.t=Date.now();try{localStorage.setItem(DIR_SESSION_KEY,JSON.stringify(o));}catch(e){}
+          return k;
+        }
+        dirSessionClear();return null; // code changé par les RH : session invalidée
       }
     }
-    dirSessionClear();return null;
+    return null; // magasin d'une autre enseigne (ex. session GdO sur le portail Edgard) : on la conserve
   }catch(e){return null;}
 }
 function dirLogout(){dirSessionClear();location.reload();}
