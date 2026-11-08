@@ -1205,6 +1205,58 @@ async function envoyerQuestionRH(){
     });
   }
 
+  // Petite animation "essai" pour les occasions rugby : l'elephant (deja costume juste
+  // au-dessus) traverse l'ecran et plante le ballon. Une fois par jour et par visiteur
+  // (localStorage), et pas du tout si la personne a demande moins d'animations.
+  if ((actif.id === 'tournoi-6-nations' || actif.id === 'championnat-nations')
+      && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    try {
+      var dejaJoueCle = 'essaiRugbyJoueLe';
+      var ajdEssai = new Date().toISOString().slice(0,10);
+      if (localStorage.getItem(dejaJoueCle) !== ajdEssai) {
+        var heroImgEssai = document.querySelector('.mascot-wrap .mascot-hero');
+        if (heroImgEssai && heroImgEssai.src) {
+          localStorage.setItem(dejaJoueCle, ajdEssai);
+          var surMobileEssai = !window.matchMedia('(min-width:700px)').matches;
+          var runnerW = surMobileEssai ? 86 : 130;
+          var accentEssai = (actif.couleurs && actif.couleurs['--spark']) || '#C8102E';
+          var fonceEssai = (actif.couleurs && actif.couleurs['--gold']) || '#1B3A7A';
+
+          var essaiStyle = document.createElement('style');
+          essaiStyle.textContent =
+            '@keyframes essaiRun{0%{left:-140px;bottom:10%;transform:rotate(0deg)}70%{left:60%;bottom:10%;transform:rotate(0deg)}86%{left:70%;bottom:1%;transform:rotate(-18deg) scale(1.05)}100%{left:74%;bottom:-3%;transform:rotate(-24deg) scale(1.02)}}'+
+            '@keyframes essaiBall{0%,68%{opacity:0;transform:translate(0,0) scale(.7)}74%{opacity:1;transform:translate(6px,8px) scale(1)}100%{opacity:1;transform:translate(10px,14px) scale(1)}}'+
+            '@keyframes essaiPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-6deg)}55%{opacity:1;transform:translate(-50%,-50%) scale(1.14) rotate(2deg)}78%{transform:translate(-50%,-50%) scale(.97) rotate(-1deg)}100%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}}'+
+            '@keyframes essaiFade{0%,84%{opacity:1}100%{opacity:0}}';
+          document.head.appendChild(essaiStyle);
+
+          var essaiWrap = document.createElement('div');
+          essaiWrap.setAttribute('aria-hidden','true');
+          essaiWrap.style.cssText = 'position:fixed;inset:0;z-index:99000;pointer-events:none;overflow:hidden;animation:essaiFade 4.6s ease-in 1 forwards;';
+
+          var runner = document.createElement('img');
+          runner.src = heroImgEssai.src;
+          runner.style.cssText = 'position:absolute;width:'+runnerW+'px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35));animation:essaiRun 2.2s cubic-bezier(.3,.6,.4,1) 1 forwards;';
+          essaiWrap.appendChild(runner);
+
+          var ball = document.createElement('span');
+          ball.textContent = '🏉';
+          ball.setAttribute('style','position:absolute;left:calc(74% + '+(runnerW*0.4)+'px);bottom:-3%;font-size:'+(surMobileEssai?'1.2rem':'1.6rem')+';animation:essaiBall 2.2s ease-out 1 forwards;');
+          essaiWrap.appendChild(ball);
+
+          var essaiTxt = document.createElement('div');
+          essaiTxt.textContent = 'ESSAI !';
+          essaiTxt.setAttribute('style','position:absolute;top:38%;left:50%;font-family:Fraunces,Georgia,serif;font-weight:800;font-size:clamp(1.8rem,7vw,3.6rem);color:#fff;text-shadow:0 0 18px '+accentEssai+',0 4px 0 '+fonceEssai+';opacity:0;animation:essaiPop 1.5s cubic-bezier(.17,1.8,.5,1) 1 2s forwards;');
+          essaiWrap.appendChild(essaiTxt);
+
+          document.body.appendChild(essaiWrap);
+          setTimeout(function(){ essaiWrap.remove(); }, 4700);
+        }
+      }
+    } catch(e) {}
+  }
+
+
   // Décor ambiant discret : un gabarit complet sur grand écran, un gabarit allégé (dans les
   // marges visibles, sans décalage négatif) sur mobile — visible partout, jamais envahissant.
   var wrap = document.querySelector('.wrap');
